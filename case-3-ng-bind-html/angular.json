@@ -1,0 +1,55 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "analytics": false
+  },
+  "projects": {
+    "case-3-ng-bind-html": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.json",
+            "assets": [
+              {
+                "glob": "angular.min.js",
+                "input": "node_modules/angular",
+                "output": "/"
+              },
+              {
+                "glob": "angular-sanitize.min.js",
+                "input": "node_modules/angular-sanitize",
+                "output": "/"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4203
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "case-3-ng-bind-html:build:production"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    }
+  }
+}

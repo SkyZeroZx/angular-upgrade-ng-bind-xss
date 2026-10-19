@@ -18,12 +18,12 @@ npm install
 npm start
 ```
 
-1. Open http://localhost:3000/profile and save the display name
-   `{{constructor.constructor('alert(document.domain)')()}}`.
-2. Open http://localhost:4202/ and click "Ticket #1042". The alert shows up.
-3. Go back Home and open the ticket again. It fires again, since AngularJS and the Angular module are bootstrapped
+1. Open http://localhost:4202/ and click "Ticket #1042". The alert shows up.
+2. Go back Home and open the ticket again. It fires again, since AngularJS and the Angular module are bootstrapped
    again on every visit.
-4. Loading http://localhost:4202/tickets/1042 directly works too.
+3. Loading http://localhost:4202/tickets/1042 directly works too.
+
+The backend returns the reporter's display name as `{{constructor.constructor('alert(document.domain)')()}}`.
 
 ## Notes
 

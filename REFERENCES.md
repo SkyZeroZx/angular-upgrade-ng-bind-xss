@@ -73,6 +73,21 @@ From "Upgrading for performance", the `downgradeModule()` guide:
   [L24](https://github.com/angular/angular.js/blob/v1.8.3/src/ng/directive/ngBind.js#L24)), and it only sets
   `element.textContent`
   ([L62-L63](https://github.com/angular/angular.js/blob/v1.8.3/src/ng/directive/ngBind.js#L62-L63)).
+- The same docs recommend it over `{{ }}` in some cases: "It is preferable to use `ngBind` instead of
+  `{{ expression }}` if a template is momentarily displayed by the browser in its raw state before AngularJS
+  compiles it."
+  [ngBind.js#L13-L18](https://github.com/angular/angular.js/blob/v1.8.3/src/ng/directive/ngBind.js#L13-L18)
+- ngBindHtml: "Evaluates the expression and inserts the resulting HTML into the element in a secure way. By
+  default, the resulting HTML content will be sanitized using the $sanitize service."
+  [ngBind.js#L144-L145](https://github.com/angular/angular.js/blob/v1.8.3/src/ng/directive/ngBind.js#L141-L155)
+  (used in case 3)
+- `$sanitize` keeps the `class` attribute:
+  [sanitize.js#L376](https://github.com/angular/angular.js/blob/v1.8.3/src/ngSanitize/sanitize.js#L376).
+  ngBind can also be used as a class (`restrict: 'AC'`,
+  [ngBind.js#L56](https://github.com/angular/angular.js/blob/v1.8.3/src/ng/directive/ngBind.js#L56)), and the
+  compiler guide lists `<span class="ng-bind: exp;"></span>` as one of its forms
+  [compiler.ngdoc#L60-L71](https://github.com/angular/angular.js/blob/v1.8.3/docs/content/guide/compiler.ngdoc#L60-L71).
+  That is the payload in case 3.
 - "This means that as a developer, you can assume all untrusted bindings are safe."
   [sce.js#L576-L579](https://github.com/angular/angular.js/blob/v1.8.3/src/ng/sce.js#L576-L579)
 - `terminal`: "If set to true then the current `priority` will be the last set of directives which will execute

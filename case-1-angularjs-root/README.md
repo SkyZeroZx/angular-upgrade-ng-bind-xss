@@ -21,10 +21,10 @@ npm install
 npm start
 ```
 
-1. Open http://localhost:3000/profile, set the display name to
-   `{{constructor.constructor('alert(document.domain)')()}}` and save.
-2. Open http://localhost:4201/tickets/1042. The alert shows up, twice, because it runs on every digest.
-3. Reset the name and reload. The badge shows "Ada Lovelace".
+Open http://localhost:4201/tickets/1042. The alert shows up, twice, because it runs on every digest.
+
+The backend returns the reporter's display name as `{{constructor.constructor('alert(document.domain)')()}}`.
+Put a normal name in `backend.mjs` and the badge just shows it.
 
 ## Files
 

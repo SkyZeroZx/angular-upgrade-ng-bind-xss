@@ -8,7 +8,6 @@ import {RouterLink, RouterOutlet} from '@angular/router';
     <nav>
       <a routerLink="/">Home</a>
       <a routerLink="/tickets/1042">Ticket #1042</a>
-      <a href="/profile" target="_blank">customer profile (attacker)</a>
     </nav>
     <router-outlet />
   `,
