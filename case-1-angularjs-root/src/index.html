@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Support portal (AngularJS app, migrating to Angular)</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; color: #202124; }
+    .ticket { border: 1px solid #dadce0; border-radius: 8px; padding: 16px; max-width: 560px; }
+  </style>
+</head>
+<body ng-app="supportApp">
+  <ticket-page></ticket-page>
+
+  <!-- AngularJS 1.8.3 from node_modules. The CLI adds the Angular bundle. -->
+  <script src="angular.min.js"></script>
+</body>
+</html>
