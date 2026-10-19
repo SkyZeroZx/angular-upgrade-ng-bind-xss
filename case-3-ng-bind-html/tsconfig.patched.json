@@ -1,0 +1,13 @@
+// The same app with the patched @angular/upgrade, used by `npm run start:patched`.
+// esbuild takes the .mjs from the first path and TypeScript the .d.ts from the second.
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@angular/upgrade/static": [
+        "./node_modules/upgrade-patched/fesm2022/static",
+        "./node_modules/upgrade-patched/types/static"
+      ]
+    }
+  }
+}

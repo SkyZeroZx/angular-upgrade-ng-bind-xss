@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "start": "ng serve",
+    "start:patched": "npm i --no-save upgrade-patched@file:../patched/angular-upgrade-22.2.3.tgz && ng serve -c patched",
     "build": "ng build"
   },
   "dependencies": {

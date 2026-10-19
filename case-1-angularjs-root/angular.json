@@ -28,6 +28,9 @@
           "configurations": {
             "production": {
               "outputHashing": "all"
+            },
+            "patched": {
+              "tsConfig": "tsconfig.patched.json"
             }
           },
           "defaultConfiguration": "production"
@@ -40,6 +43,10 @@
           "configurations": {
             "production": {
               "buildTarget": "case-1-angularjs-root:build:production"
+            },
+            "patched": {
+              "buildTarget": "case-1-angularjs-root:build:production,patched",
+              "port": 4211
             }
           },
           "defaultConfiguration": "production"

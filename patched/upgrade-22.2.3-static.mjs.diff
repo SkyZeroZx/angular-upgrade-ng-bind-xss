@@ -1,0 +1,69 @@
+diff --git a/package/fesm2022/static.mjs b/patched/package/fesm2022/static.mjs
+index b084d8a..29ed799 100644
+--- a/package/fesm2022/static.mjs
++++ b/patched/package/fesm2022/static.mjs
+@@ -177,9 +177,15 @@ class DowngradeComponentAdapter {
+     this.unsafelyOverwriteSignalInputs = unsafelyOverwriteSignalInputs;
+     this.componentScope = scope.$new();
+   }
+-  compileContents() {
++  compileContents(template) {
++    if (!template.length) {
++      const projectableNodes = this.groupProjectableNodes(this.element.contents());
++      projectableNodes.forEach(nodes => nodes.forEach(node => this.element[0].removeChild(node)));
++      this.element.empty();
++      return projectableNodes;
++    }
+     const compiledProjectableNodes = [];
+-    const projectableNodes = this.groupProjectableNodes();
++    const projectableNodes = this.groupProjectableNodes(template);
+     const linkFns = projectableNodes.map(nodes => this.$compile(nodes));
+     this.element.empty();
+     linkFns.forEach(linkFn => {
+@@ -362,9 +368,9 @@ class DowngradeComponentAdapter {
+       componentRef.instance[prop] = currValue;
+     }
+   }
+-  groupProjectableNodes() {
++  groupProjectableNodes(nodes) {
+     let ngContentSelectors = reflectComponentType(this.component)?.ngContentSelectors ?? [];
+-    return groupNodesBySelector(ngContentSelectors, this.element.contents());
++    return groupNodesBySelector(ngContentSelectors, nodes);
+   }
+ }
+ function groupNodesBySelector(ngContentSelectors, nodes) {
+@@ -452,12 +458,19 @@ function downgradeComponent(info) {
+     const wrapCallback = !isNgUpgradeLite ? cb => cb : cb => () => NgZone.isInAngularZone() ? cb() : ngZone.run(cb);
+     let ngZone;
+     const hasMultipleDowngradedModules = isNgUpgradeLite && getDowngradedModuleCount($injector) > 1;
++    const templates = new WeakMap();
+     return {
+       restrict: 'E',
+       terminal: true,
+       require: [REQUIRE_INJECTOR, REQUIRE_NG_MODEL],
+-      controller: function () {},
++      controller: ['$element', function (element) {
++        const fragment = document.createDocumentFragment();
++        element[0].childNodes.forEach(node => fragment.appendChild(node.cloneNode(true)));
++        templates.set(element[0], Array.from(fragment.childNodes));
++      }],
+       link: (scope, element, attrs, required) => {
++        const template = templates.get(element[0]);
++        templates.delete(element[0]);
+         const ngModel = required[1];
+         const parentInjector = required[0];
+         let moduleInjector = undefined;
+@@ -475,7 +488,7 @@ function downgradeComponent(info) {
+         const doDowngrade = (injector, moduleInjector) => {
+           const injectorPromise = new ParentInjectorPromise(element);
+           const facade = new DowngradeComponentAdapter(element, attrs, scope, ngModel, moduleInjector.get(EnvironmentInjector), injector, $compile, $parse, info.component, wrapCallback, unsafelyOverwriteSignalInputs);
+-          const projectableNodes = facade.compileContents();
++          const projectableNodes = facade.compileContents(template);
+           const componentRef = facade.createComponentAndSetup(projectableNodes, isNgUpgradeLite, info.propagateDigest);
+           injectorPromise.resolve(componentRef.injector);
+           if (ranAsync) {
+@@ -1190,4 +1203,3 @@ i0.ɵɵngDeclareClassMetadata({
+ });
+ 
+ export { UpgradeComponent, UpgradeModule, downgradeComponent, downgradeInjectable, downgradeModule, upgrade_helper as ɵupgradeHelper, util as ɵutil };
+-//# sourceMappingURL=static.mjs.map

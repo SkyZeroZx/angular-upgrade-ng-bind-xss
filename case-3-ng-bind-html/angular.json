@@ -33,6 +33,9 @@
           "configurations": {
             "production": {
               "outputHashing": "all"
+            },
+            "patched": {
+              "tsConfig": "tsconfig.patched.json"
             }
           },
           "defaultConfiguration": "production"
@@ -45,6 +48,10 @@
           "configurations": {
             "production": {
               "buildTarget": "case-3-ng-bind-html:build:production"
+            },
+            "patched": {
+              "buildTarget": "case-3-ng-bind-html:build:production,patched",
+              "port": 4213
             }
           },
           "defaultConfiguration": "production"
