@@ -13,9 +13,11 @@ it with ngSanitize. The migrated component is a box that only projects its conte
 export class MessageBoxComponent {}
 ```
 
-```diff
-- <div class="message-box" ng-bind-html="$ctrl.ticket.description"></div>
-+ <message-box ng-bind-html="$ctrl.ticket.description"></message-box>
+The page used to render it in a `<div class="message-box" ng-bind-html="...">`. Now it uses the component, with
+the same binding:
+
+```html
+<message-box ng-bind-html="$ctrl.ticket.description"></message-box>
 ```
 
 The description has no `{{ }}` at all:
