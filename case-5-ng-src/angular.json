@@ -1,0 +1,57 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "analytics": false
+  },
+  "projects": {
+    "case-5-ng-src": {
+      "projectType": "application",
+      "root": "",
+      "sourceRoot": "src",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": "dist",
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.json",
+            "assets": [
+              {
+                "glob": "angular.min.js",
+                "input": "node_modules/angular",
+                "output": "/"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "patched": {
+              "tsConfig": "tsconfig.patched.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "port": 4205
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "case-5-ng-src:build:production"
+            },
+            "patched": {
+              "buildTarget": "case-5-ng-src:build:production,patched",
+              "port": 4215
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    }
+  }
+}

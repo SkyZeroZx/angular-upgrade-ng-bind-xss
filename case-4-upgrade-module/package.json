@@ -1,0 +1,27 @@
+{
+  "name": "case-4-upgrade-module",
+  "private": true,
+  "scripts": {
+    "start": "ng serve",
+    "start:patched": "npm i --no-save upgrade-patched@file:../patched/angular-upgrade-22.2.3.tgz && ng serve -c patched",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/common": "22.2.3",
+    "@angular/compiler": "22.2.3",
+    "@angular/core": "22.2.3",
+    "@angular/platform-browser": "22.2.3",
+    "@angular/platform-browser-dynamic": "22.2.3",
+    "@angular/upgrade": "22.2.3",
+    "angular": "1.8.3",
+    "rxjs": "7.8.2",
+    "tslib": "2.8.1",
+    "zone.js": "0.16.3"
+  },
+  "devDependencies": {
+    "@angular/build": "22.2.3",
+    "@angular/cli": "22.2.3",
+    "@angular/compiler-cli": "22.2.3",
+    "typescript": "6.0.3"
+  }
+}
